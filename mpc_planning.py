@@ -174,22 +174,10 @@ class MpcPathPlanning:
                 closest_mid[1] : (closest_mid[1] + PREDICTION_HORIZON)
             ]
 
-            # print("Current Position local: ", mpc_current_state)
-            # print("Goal Position local: ", mpc_goal_pose)
-            # print("road center points", closest_mid)
-            # print("current road", (center_x))
-            # print("##################")
-
             marker_msg = create_marker_waypoint(
                 mid_x_local, mid_y_local, "velodyne", "green"
             )
             self.center_lanelet_pub.publish(marker_msg)
-
-            # plt.plot(mpc_current_state[0], mpc_current_state[1], "*")
-            # plt.plot(mpc_goal_pose[0], mpc_goal_pose[1], "r*")
-            # plt.plot(mid_x_local, mid_y_local, "--b")
-            # plt.plot(mid_x, mid_y)
-            # plt.show()
 
             # set inital value for the mpc opeartion using the current position
             opti.set_initial(
@@ -231,7 +219,6 @@ class MpcPathPlanning:
                 c1 = opti.debug.value(u_dv[0, 0])
                 c2 = opti.debug.value(u_dv[0, 1])
                 self.cnt = [c1, c2]
-            # print("Greedy sol", sol_x)
 
             marker_msg = create_marker_waypoint(sol_x, sol_y, "velodyne", "red")
             self.prediction_pub.publish(marker_msg)
@@ -364,4 +351,3 @@ if __name__ == "__main__":
     while not rospy.is_shutdown():
         mpc.mpc_calculation()
         rate.sleep()
-    # # rospy.spin()

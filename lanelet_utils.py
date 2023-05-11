@@ -22,7 +22,6 @@ def closest_point(px, py, curx, cury):
 
     curxy = [(curx, cury)]
     pxy = np.column_stack((px, py))
-
     ddd = distance.cdist(curxy, pxy, "euclidean")
     min_dist = np.min(ddd)
     min_index = np.argmin(ddd)
@@ -74,7 +73,6 @@ def create_marker_waypoint(x, y, frame_id, color):
     blue = 0
 
     for i in range(len(x)):
-        # print("i", i)
         marker = Marker()
 
         marker.header.frame_id = frame_id
@@ -100,7 +98,6 @@ def create_marker_waypoint(x, y, frame_id, color):
             green = 0.0
             blue = 0.0
 
-        # print(red, green, blue)
         marker.color.r = red
         marker.color.g = green
         marker.color.b = blue
@@ -174,11 +171,6 @@ def get_lane_info_from_lanlet_map(lmap):
 
     midx = [np.mean([left_x[i], right_x[i]]) for i in range(len(left_x) - 10)]
     midy = [np.mean([left_y[i], right_y[i]]) for i in range(len(left_x) - 10)]
-
-    # plt.plot(lp_uniformly_spaced.coords.xy[0], lp_uniformly_spaced.coords.xy[1])
-    # plt.plot(rp_uniformly_spaced.coords.xy[0], rp_uniformly_spaced.coords.xy[1])
-    # plt.plot(midx, midy)
-    # plt.show()
 
     return left_x, left_y, right_x, right_y, midx, midy
 
